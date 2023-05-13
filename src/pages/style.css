@@ -1,0 +1,89 @@
+.mainInfoBlock {
+    display: flex;
+    justify-content: space-around;
+    height: 600px;
+    width: 100%;
+}
+
+.infoPictureBlock {
+    position: relative;
+    width: 40%;
+    height: 700px;
+    padding: 60px;
+    background-color: var(--white);
+    z-index: 3;
+}
+
+.infoPictureBlock::after {
+    content: "";
+    display: block;
+    position: absolute;
+    height: 570px;
+    width: 65%;
+    top: 20px;
+    left: 20px;
+    border-bottom-right-radius: 50px;
+    background-color: var(--gray);
+    opacity: 0.1;
+}
+
+.infoPictureBlock::before {
+    content: "„";
+    position: absolute;
+    font-size: 144px;
+    top: 370px;
+    left: 275px;
+    color: var(--gray-dark);
+    opacity: 0.2;
+}
+
+.infoPicture {
+    width: 450px;
+    height: 275px;
+    position: absolute;
+    border-top-right-radius: 50px;
+    z-index: 2;
+}
+
+.infoPictureText {
+    width: 65%;
+    padding-top: 320px;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.infoTextBlock {
+    padding: 40px;
+    width: 55%;
+    height: 700px;
+}
+
+.textBlockSubTitle {
+    color: var(--blue);
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.textBlockMainTitle {
+    color: var(--gray-dark);
+    line-height: 32px;
+    font-size: 32px;
+    font-weight: bold;
+}
+
+.textBlock {
+    padding: 20px;
+    margin-top: 40px;
+    color: var(--gray);
+    border-left: 1px solid var(--gray);
+    font-size: 20px;
+}
+
+.textBlockColored {
+    display: block;
+    height: 80px;
+    margin-top: 10px;
+    padding-left: 20px;
+    color: var(--red);
+    border-left: 1px solid var(--red);
+}
