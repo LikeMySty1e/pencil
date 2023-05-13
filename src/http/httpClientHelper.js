@@ -1,6 +1,5 @@
 import axios from "axios";
 import localStorageHelper from "../helpers/localStorageHelper";
-import StatusEnum from "../enums/StatusEnum";
 
 axios.defaults.withCredentials = true;
 
@@ -12,12 +11,12 @@ const handleRequest = async (request) => {
     const response = await request();
 
     // noinspection EqualityComparisonWithCoercionJS
-    if (response.status == `401`) {
-        localStorageHelper.deleteLocalToken();
-        window.location.replace(`/auth`);
-
-        return { status: StatusEnum.Unauthorized, data: {} };
-    }
+    // if (response.status == `401`) {
+    //     localStorageHelper.deleteLocalToken();
+    //     window.location.replace(`/auth`);
+    //
+    //     return { status: StatusEnum.Unauthorized, data: {} };
+    // }
 
     return response;
 }
