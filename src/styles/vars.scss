@@ -1,33 +1,4 @@
-#root {
-  --black-900: #161819;
-  --black-800: #212325;
-  --black-700: #2E3031;
-  --black-600: #424345;
-  --black-500: #767778;
-  --black-400: #9A9B9C;
 
-  --white: #FFFFFF;
-  --error: #EC1D35;
-  --warning: #FFC107;
-  --success: #28A745;
-
-  --primary: #5437DC;
-  --primary-900: #0018bc;
-  --primary-800: #1725c6;
-  --primary-700: #342bcd;
-  --primary-600: #4932d6;
-  --primary-500: #5437DC;
-  --primary-400: #7455e2;
-  --primary-300: #9074e7;
-  --primary-200: #b19ded;
-  --primary-100: #d0c4f4;
-
-  background-color: var(--black-900);
-  min-height: 100vh;
-  height: 100%;
-
-  font-family: 'Gilroy', sans-serif;
-}
 
 //$grid-breakpoints: (
 //        xs: 0,
