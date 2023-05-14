@@ -1,7 +1,7 @@
 import React from 'react';
 import {observer} from "mobx-react-lite";
 import cn from "classnames";
-import {NavLink, useHistory} from "react-router-dom";
+import {NavLink} from "react-router-dom";
 import {AUTH_ROUTE, MAIN_ROUTE} from "../../resources/consts";
 import {Context} from "../../index";
 import './style.m.css';
@@ -19,6 +19,10 @@ const NavBar = observer(() => {
         <NavLink className={cn("tab", { "tab--active": false })} to={main.isAuth ? MAIN_ROUTE: AUTH_ROUTE}>
             Работа
         </NavLink>
+
+        <div className={'text-white btn btn-ex'}>
+            Check bs styles
+        </div>
     </div>;
 
     // return (
