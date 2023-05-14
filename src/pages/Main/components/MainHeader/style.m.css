@@ -1,0 +1,32 @@
+.main__header {
+
+}
+
+.main__tabs {
+    display: flex;
+    justify-content: flex-start;
+    margin-bottom: 38px;
+}
+
+.main__tab {
+    margin-right: 28px;
+    padding: 0;
+    outline: none;
+    border: none;
+    cursor: pointer;
+    background: none;
+    font-weight: bold;
+    font-size: 32px;
+    line-height: 120%;
+    color: var(--black-600);
+    transition: all linear 175ms;
+}
+
+.main__tab:hover {
+    color: var(--black-400);
+}
+
+.main__tab--active,
+.main__tab--active:hover {
+    color: var(--white);
+}

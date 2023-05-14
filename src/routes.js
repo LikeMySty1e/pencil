@@ -1,11 +1,10 @@
-import {AUTH_ROUTE, MAIN_ROUTE, PROFILE_ROUTE} from "./resources/consts";
-import Auth from "./pages/Auth";
-import Main from "./pages/Main";
+import {MAIN_ROUTE, PROFILE_ROUTE} from "./resources/consts";
+import Main from "./pages/Main/Main";
 
 export const unauthorisedRoutes = [
     {
-        path: AUTH_ROUTE,
-        Component: Auth
+        path: MAIN_ROUTE,
+        Component: Main
     }
 ]
 

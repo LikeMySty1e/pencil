@@ -1,0 +1,6 @@
+.filters__container {
+    width: 270px;
+    height: 740px;
+    border-radius: 12px;
+    background-color: var(--black-800);
+}

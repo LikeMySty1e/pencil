@@ -1,13 +1,15 @@
 .navigation {
     display: flex;
     flex-direction: row;
-    align-items: flex-start;
+    justify-content: space-between;
+    align-items: center;
     padding: 20px 140px;
     height: 84px;
     background-color: var(--black-800);
 }
 
-.tab {
+.tab,
+.logo__button {
     margin: 0 12px;
     padding: 10px;
     text-decoration: none;
@@ -16,6 +18,14 @@
     font-size: 16px;
     line-height: 120%;
     transition: all linear 350ms;
+}
+
+.logo__button {
+    margin-right: 28px;
+    padding: 0;
+    width: 74px;
+    height: 44px;
+    background: url("../../icons/logo.m.svg") no-repeat;
 }
 
 .tab:hover {
@@ -30,6 +40,28 @@
 .tab--active:hover {
     background-color: var(--primary-700);
     color: var(--white);
+}
+
+.tab__block {
+    display: flex;
+    align-items: center;
+}
+
+.search__input {
+    margin-top: 10px;
+    align-items: center;
+    width: 947px;
+}
+
+.profile--mini {
+    margin: 0;
+    padding: 0;
+    justify-content: center;
+    align-items: baseline;
+    width: 44px;
+    height: 44px;
+    background-color: var(--black-400);
+    border-radius: 50%;
 }
 
 /*.navigation::before {*/

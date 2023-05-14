@@ -1,5 +1,18 @@
 @import "gilroy.font";
 @import "bootstrap";
+
+body {
+  overflow: auto;
+  -ms-overflow-style: none;
+  //noinspection CssUnknownProperty
+  scrollbar-width: none;
+}
+
+body::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
+
 #root {
   --black-900: #161819;
   --black-800: #212325;
@@ -29,8 +42,5 @@
   height: 100%;
 
   font-family: 'Gilroy', sans-serif;
-}
-
-* {
-  outline: 1px dashed green;
+  overflow-y: hidden;
 }
