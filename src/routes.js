@@ -1,7 +1,6 @@
 import {AUTH_ROUTE, MAIN_ROUTE, PROFILE_ROUTE} from "./resources/consts";
 import Auth from "./pages/Auth";
 import Main from "./pages/Main";
-import Profile from "./pages/Profile/Profile";
 
 export const unauthorisedRoutes = [
     {
@@ -17,6 +16,6 @@ export const authorisedRoutes = [
     },
     {
         path: PROFILE_ROUTE,
-        Component: Profile
+        Component: `Profile`
     }
 ]
