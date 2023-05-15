@@ -4,6 +4,7 @@ import {Context} from "../../index";
 import Container from "../../components/common/Container/Container";
 import Filters from "./components/Filters/Filters";
 import MainHeader from "./components/MainHeader/MainHeader";
+import Feed from "./components/Feed/Feed";
 import './style.m.css';
 
 const Main = observer(() => {
@@ -13,6 +14,7 @@ const Main = observer(() => {
         <MainHeader />
         <div className="main">
             <Filters />
+            <Feed />
         </div>
     </Container>
 });

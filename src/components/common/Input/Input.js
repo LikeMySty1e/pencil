@@ -3,8 +3,9 @@ import cn from 'classnames';
 import PropTypes from 'prop-types';
 import InputIconEnum from "./enums/InputIconEnum";
 import InputTypeEnum from "./enums/InputTypeEnum";
+import SvgIcon from "../SvgIcon/SvgIcon";
 // import {validateInput} from "./helpers/validateHelper";
-import './style.m.css';
+import './style.m.scss';
 
 const Input = props => {
     const {
@@ -14,7 +15,7 @@ const Input = props => {
         classname,
         placeholder,
         error,
-        icon,
+        icons,
         message,
         value,
         onChange,
@@ -27,6 +28,9 @@ const Input = props => {
     const [isFocused, setIsFocused] = React.useState(false);
     const inputRef = React.useRef(null);
 
+    const hasRightIcon = React.useMemo(() => !!icons.some(icon => icon.side === InputIconEnum.right), [icons]);
+    const hasLeftIcon = React.useMemo(() => !!icons.some(icon => icon.side === InputIconEnum.left), [icons]);
+
     React.useEffect(() => setQuery(value), [value]);
 
     const getClassnames = () => {
@@ -37,7 +41,8 @@ const Input = props => {
             classname,
             {
                 ["input__error"]: error,
-                [`input__${icon}__icon`]: !!icon
+                ["input--rightIcon"]: hasRightIcon,
+                ["input--leftIcon"]: hasLeftIcon
             },
         )
     };
@@ -80,19 +85,37 @@ const Input = props => {
         </div>;
     };
 
+    const renderRightIcon = () => {
+
+    }
+
+    const renderLeftIcon = () => {
+        const iconData = icons.find(icon => icon.side === InputIconEnum.right);
+
+        return <SvgIcon
+            classname={cn("right__icon", iconData.classname)}
+            iconClassname={"icon"}
+            Icon={iconData.Icon}
+        />;
+    }
+
     return <div className="input__wrapper">
         {getLabel()}
-        <input
-            ref={inputRef}
-            onChange={onInputChange}
-            onInput={onInputActuallyInput}
-            onFocus={onInputFocus}
-            onBlur={onInputBlur}
-            disabled={disabled}
-            value={query}
-            placeholder={placeholder}
-            className={getClassnames()}
-        />
+        <div className="input__container">
+            {renderLeftIcon()}
+            <input
+                ref={inputRef}
+                onChange={onInputChange}
+                onInput={onInputActuallyInput}
+                onFocus={onInputFocus}
+                onBlur={onInputBlur}
+                disabled={disabled}
+                value={query}
+                placeholder={placeholder}
+                className={getClassnames()}
+            />
+            {renderRightIcon()}
+        </div>
         <div className={cn("input__message", { "input__message--error": error })}>
             {message}
         </div>
@@ -119,7 +142,7 @@ Input.propTypes = {
     classname: PropTypes.string,
     placeholder: PropTypes.string,
     type: PropTypes.oneOf(Object.values(InputTypeEnum)),
-    icon: PropTypes.oneOf(Object.values(InputIconEnum)),
+    icons: PropTypes.arrayOf(PropTypes.shape({})),
     value: PropTypes.oneOfType([PropTypes.string, PropTypes.number, null]),
     onChange: PropTypes.func,
     onInput: PropTypes.func,

@@ -8,8 +8,25 @@
 }
 
 .input__wrapper {
-    position: relative;
     width: border-box;
+    transition: all 350ms;
+}
+
+.input__container {
+    position: relative;
+    width: 100%;
+}
+
+.right__icon {
+    position: absolute;
+    z-index: 5;
+    top: 22px;
+    right: 22px;
+    fill: var(--black-500);
+
+    &:hover {
+        fill: var(--black-400);
+    }
 }
 
 .input__message {
@@ -39,6 +56,14 @@
 .input__search {
     padding: 11px 18px 11px 20px;
     border-radius: 44px;
+}
+
+.input--rightIcon {
+    padding-right: 60px;
+}
+
+.input--leftIcon {
+    padding-left: 60px;
 }
 
 .input__error {

@@ -1,7 +1,4 @@
 import axios from "axios";
-import localStorageHelper from "../helpers/localStorageHelper";
-
-axios.defaults.withCredentials = true;
 
 const $host = axios.create({
     baseURL: process.env.REACT_APP_API_ENDPOINT

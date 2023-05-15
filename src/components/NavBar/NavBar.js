@@ -4,11 +4,12 @@ import cn from "classnames";
 import {NavLink} from "react-router-dom";
 import {MAIN_ROUTE} from "../../resources/consts";
 import {Context} from "../../index";
-import Input, {InputType} from "../common/Input";
-import './style.m.css';
+import { ReactComponent as SearchIcon } from '../../icons/search.m.svg';
+import Input, {InputType, InputIcon} from "../common/Input";
+import './style.m.scss';
 
 const NavBar = observer(() => {
-    // const {main} = React.useContext(Context);
+    const {main} = React.useContext(Context);
     const [query, setQuery] = React.useState(``);
 
     return <div className="navigation">
@@ -28,6 +29,12 @@ const NavBar = observer(() => {
             value={query}
             classname="search__input"
             type={InputType.search}
+            icons={[
+                {
+                    Icon: SearchIcon,
+                    side: InputIcon.right
+                }
+            ]}
             placeholder={"Поиск проекта или автора"}
             onChange={value => setQuery(value)}
         />
