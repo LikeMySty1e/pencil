@@ -22,13 +22,13 @@ const httpClientHelper = {
     async post(url, data) {
         const response = await handleRequest(() => $host.post(url, { ...data }));
 
-        return { status: response.status, data: response.data };
+        return response.data || {};
     },
 
     async get(url, options = {}) {
         const response = await handleRequest(() => $host.get(url, options));
 
-        return { status: response.status, data: response.data };
+        return response.data || {};
     },
 
     async upload(url, data = {}) {
@@ -39,7 +39,7 @@ const httpClientHelper = {
 
         const response = await handleRequest(() => $host.post(url, body));
 
-        return { status: response.status, data: response.data };
+        return response.data || {};
     }
 }
 

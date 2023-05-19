@@ -8,6 +8,8 @@ import './style.m.scss';
 const Image = observer(props => {
     const {
         url,
+        width,
+        height,
         classname,
         imageClassname,
         onClick
@@ -23,13 +25,38 @@ const Image = observer(props => {
         return () => window.removeEventListener('scroll', check);
     }, []);
 
-    return <div ref={imageRef} onClick={onClick} className={cn("image__container", classname)}>
+    const getStyles = () => {
+        if (!width && !height) {
+            return {};
+        }
+
+        return {
+            width,
+            height,
+            minWidth: width,
+            minHeight: height
+        };
+    };
+
+    return <div
+        ref={imageRef}
+        onClick={onClick}
+        className={cn("image__container", classname)}
+        style={getStyles()}
+    >
         {!isHidden && <img className={cn("image", imageClassname)} src={url} alt="Абоба"/>}
     </div>;
 });
 
+Image.defaultProps = {
+    width: `246px`,
+    height: `246px`
+};
+
 Image.propTypes = {
     url: PropTypes.string,
+    width: PropTypes.string.isRequired,
+    height: PropTypes.string.isRequired,
     classname: PropTypes.string,
     imageClassname: PropTypes.string,
     onClick: PropTypes.func

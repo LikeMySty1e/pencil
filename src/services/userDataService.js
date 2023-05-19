@@ -1,13 +1,15 @@
 import httpClientHelper from '../http/httpClientHelper';
 
-export const login = (login, password) => {
-    return httpClientHelper.post('/users/login', { login, password });
+export const loginUser = ({ login, password }) => {
+    return httpClientHelper.post('/authorization', { login, password });
+}
+
+export const registrateUser = ({ username, email, password }) => {
+    return httpClientHelper.post('/registration', { username, email, password });
 }
 
 export const getFeed = async (type = `moderated`) => {
-     const { data } = await httpClientHelper.get(`/feed/${type}`);
-
-     return data;
+    return httpClientHelper.get(`/feed/${type}`);
 }
 
-export default {};
+export default { getFeed };

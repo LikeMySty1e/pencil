@@ -15,6 +15,8 @@ const Feed = observer(() => {
 
         return main.feed.map(pic => <Image
             url={pic.previewUrl}
+            width={`12vw`}
+            height={`12vw`}
             onClick={() => console.log(pic.id)}
         />);
     }

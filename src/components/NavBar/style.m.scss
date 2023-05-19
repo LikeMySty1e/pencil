@@ -3,7 +3,7 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    padding: 20px 140px;
+    padding: 20px 7vw;
     height: 84px;
     background-color: var(--black-800);
 }
@@ -50,7 +50,7 @@
 .search__input {
     margin-top: 10px;
     align-items: center;
-    width: 947px;
+    width: 50vw;
 }
 
 .profile--mini {
@@ -59,7 +59,10 @@
     justify-content: center;
     align-items: baseline;
     width: 44px;
+    min-width: 44px;
     height: 44px;
+    min-height: 44px;
+    cursor: pointer;
     background-color: var(--black-400);
     border-radius: 50%;
 }

@@ -6,11 +6,13 @@ import {MAIN_ROUTE} from "../../resources/consts";
 import {Context} from "../../index";
 import { ReactComponent as SearchIcon } from '../../icons/search.m.svg';
 import Input, {InputType, InputIcon} from "../common/Input";
+import AuthModal from "./components/AuthModal/AuthModal";
 import './style.m.scss';
 
 const NavBar = observer(() => {
-    const {main} = React.useContext(Context);
+    // const {main} = React.useContext(Context);
     const [query, setQuery] = React.useState(``);
+    const [modalVisible, setModalVisible] = React.useState(false);
 
     return <div className="navigation">
         <div className="tab__block">
@@ -38,7 +40,15 @@ const NavBar = observer(() => {
             placeholder={"Поиск проекта или автора"}
             onChange={value => setQuery(value)}
         />
-        <div className="profile--mini" />
+        <div
+            className="profile--mini"
+            onClick={() => setModalVisible(!modalVisible)}
+        />
+
+        <AuthModal
+            handleClose={() => setModalVisible(false)}
+            visible={modalVisible}
+        />
     </div>;
 });
 

@@ -64,10 +64,6 @@ const Input = props => {
     };
 
     const onInputChange = e => {
-        // if (!validateInput(e.target.value, type, maxLength)) {
-        //     return;
-        // }
-
         setQuery(e.target.value);
         onChange && onChange(e.target.value, e);
     };
@@ -86,15 +82,41 @@ const Input = props => {
     };
 
     const renderRightIcon = () => {
+        const iconData = icons.find(icon => icon.side === InputIconEnum.left);
 
+        if (!iconData) {
+            return null;
+        }
+
+        return <SvgIcon
+            classname={cn(
+                "icon",
+                "left__icon",
+                iconData.classname,
+                {
+                    "icon--active": isFocused
+                }
+            )}
+            Icon={iconData.Icon}
+        />;
     }
 
     const renderLeftIcon = () => {
         const iconData = icons.find(icon => icon.side === InputIconEnum.right);
 
+        if (!iconData) {
+            return null;
+        }
+
         return <SvgIcon
-            classname={cn("right__icon", iconData.classname)}
-            iconClassname={"icon"}
+            classname={cn(
+                "icon",
+                "right__icon",
+                iconData.classname,
+                {
+                    "icon--active": isFocused
+                }
+            )}
             Icon={iconData.Icon}
         />;
     }
@@ -104,6 +126,7 @@ const Input = props => {
         <div className="input__container">
             {renderLeftIcon()}
             <input
+                type={type}
                 ref={inputRef}
                 onChange={onInputChange}
                 onInput={onInputActuallyInput}
@@ -123,6 +146,7 @@ const Input = props => {
 };
 
 Input.defaultProps = {
+    icons: [],
     type: InputTypeEnum.text,
     value: ``,
     placeholder: ``,

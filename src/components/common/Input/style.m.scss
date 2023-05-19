@@ -17,16 +17,24 @@
     width: 100%;
 }
 
-.right__icon {
+.icon {
     position: absolute;
     z-index: 5;
+    fill: var(--black-500);
+}
+
+.icon--active {
+    fill: var(--white);
+}
+
+.left__icon {
+    top: 12px;
+    left: 16px;
+}
+
+.right__icon {
     top: 22px;
     right: 22px;
-    fill: var(--black-500);
-
-    &:hover {
-        fill: var(--black-400);
-    }
 }
 
 .input__message {
@@ -49,12 +57,13 @@
     transition: all linear 175ms;
 
     font-size: 18px;
-    color: var(--black-400);
+    color: var(--white);
     background-color: var(--black-700);
 }
 
 .input__search {
     padding: 11px 18px 11px 20px;
+    margin-bottom: 0;
     border-radius: 44px;
 }
 
@@ -63,7 +72,7 @@
 }
 
 .input--leftIcon {
-    padding-left: 60px;
+    padding-left: 50px;
 }
 
 .input__error {

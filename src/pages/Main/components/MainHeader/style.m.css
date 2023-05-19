@@ -16,7 +16,7 @@
     cursor: pointer;
     background: none;
     font-weight: bold;
-    font-size: 32px;
+    font-size: 2em;
     line-height: 120%;
     color: var(--black-600);
     transition: all linear 175ms;

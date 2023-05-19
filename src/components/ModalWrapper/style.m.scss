@@ -1,0 +1,77 @@
+@import "../../styles/gilroy.font";
+
+.modal {
+  --black-900: #161819;
+  --black-800: #212325;
+  --black-700: #2E3031;
+  --black-600: #424345;
+  --black-500: #767778;
+  --black-400: #9A9B9C;
+
+  --white: #FFFFFF;
+  --error: #EC1D35;
+  --warning: #FFC107;
+  --success: #28A745;
+
+  --primary: #5437DC;
+  --primary-900: #0018bc;
+  --primary-800: #1725c6;
+  --primary-700: #342bcd;
+  --primary-600: #4932d6;
+  --primary-500: #5437DC;
+  --primary-400: #7455e2;
+  --primary-300: #9074e7;
+  --primary-200: #b19ded;
+  --primary-100: #d0c4f4;
+
+  font-family: 'Gilroy', sans-serif !important;
+}
+
+.subtitle {
+  margin-top: 5px;
+  margin-bottom: 25px;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 120%;
+}
+
+.modal > .modal-dialog > .modal-content {
+  position: relative;
+  margin-top: calc(50vh - 250px);
+  margin-left: calc(50% - 350px);
+  padding: 28px 32px 64px;
+  min-width: 700px;
+  width: 700px;
+  z-index: 10000;
+  border-radius: 12px;
+  color: var(--black-500);
+  background-color: var(--black-800);
+
+  & > .modal-header {
+    padding: 0;
+    border-bottom: none;
+
+    & > .modal-title {
+      font-weight: 600 !important;
+      font-size: 24px !important;
+      line-height: 120% !important;
+      color: var(--white);
+    }
+
+    & > .btn-close {
+      border-radius: 50%;
+      width: 0.7em;
+      height: 0.7em;
+      background-color: var(--black-600);
+    }
+  }
+
+  & > .container {
+    border-top: 1px solid var(--black-600);
+    padding: 25px 0 0;
+  }
+
+  & > .modal-footer {
+    border-top: none;
+  }
+}

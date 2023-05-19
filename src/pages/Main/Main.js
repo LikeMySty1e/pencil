@@ -8,9 +8,9 @@ import Feed from "./components/Feed/Feed";
 import './style.m.css';
 
 const Main = observer(() => {
-    const {main} = useContext(Context);
+    // const {main} = useContext(Context);
 
-    return <Container padding={`70px 140px`}>
+    return <Container padding={`70px 40px 0 7.5vw`}>
         <MainHeader />
         <div className="main">
             <Filters />
