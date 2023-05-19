@@ -67,6 +67,7 @@
 
 .modal__link {
   position: absolute;
+  user-select: none;
   bottom: 40px;
   left: 32px;
   font-size: 16px;

@@ -46,15 +46,11 @@ export default class MainStore {
         }
     }
 
-    auth = async cb => {
-        if (!cb) {
-            return;
-        }
-
+    login = async (email, password) => {
         this.setLoading(`auth`, true);
 
         try {
-            const { result = {}, ok, description } = await cb();
+            const { result = {}, ok, description } = await loginUser({ login: email, password });
 
             if (!ok) {
                 this.setValidationError(`auth`, description);
@@ -75,15 +71,26 @@ export default class MainStore {
         }
     }
 
-    login = async (email, password) => {
-        // noinspection UnnecessaryLocalVariableJS
-        const result = await this.auth(() => loginUser({ login: email, password }));
+    registrate = async (login, email, password) => {
+        this.setLoading(`auth`, true);
 
-        return result;
-    }
+        try {
+            const { ok, description } = await registrateUser({ username: login, email, password });
 
-    registrate = (login, email, password) => {
-        return this.auth(() => registrateUser({ username: login, email, password }));
+            if (!ok) {
+                this.setValidationError(`auth`, description);
+
+                return false;
+            }
+
+            const result = await this.login(email, password);
+
+            return !!result;
+        } catch (e) {
+            console.error(e.message);
+        } finally {
+            this.setLoading(`auth`, false);
+        }
     }
 
     setValidationError = (field, value) => {

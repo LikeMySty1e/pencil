@@ -24,6 +24,8 @@ const AuthModal = observer(props => {
     const [swipe, setSwipe] = React.useState(false);
     const [isRegistration, setIsRegistration] = React.useState(false);
 
+    React.useEffect(() => setIsRegistration(false), [visible]);
+
     React.useEffect(() => {
         setLogin(``);
         setEmail(``);
