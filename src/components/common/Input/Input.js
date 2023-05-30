@@ -11,6 +11,7 @@ const Input = props => {
     const {
         label,
         // maxLength,
+        multiline,
         disabled,
         classname,
         placeholder,
@@ -40,9 +41,10 @@ const Input = props => {
             `input__${type}`,
             classname,
             {
-                ["input__error"]: error,
-                ["input--rightIcon"]: hasRightIcon,
-                ["input--leftIcon"]: hasLeftIcon
+                "input__error": error,
+                "input--rightIcon": hasRightIcon,
+                "input--leftIcon": hasLeftIcon,
+                "input--multiline": multiline
             },
         )
     };
@@ -119,14 +121,11 @@ const Input = props => {
             )}
             Icon={iconData.Icon}
         />;
-    }
+    };
 
-    return <div className="input__wrapper">
-        {getLabel()}
-        <div className="input__container">
-            {renderLeftIcon()}
-            <input
-                type={type}
+    const renderInput = () => {
+        if (multiline) {
+            return <textarea
                 ref={inputRef}
                 onChange={onInputChange}
                 onInput={onInputActuallyInput}
@@ -136,7 +135,29 @@ const Input = props => {
                 value={query}
                 placeholder={placeholder}
                 className={getClassnames()}
-            />
+            />;
+        }
+
+        return <input
+            type={type}
+            ref={inputRef}
+            onChange={onInputChange}
+            onInput={onInputActuallyInput}
+            onFocus={onInputFocus}
+            onBlur={onInputBlur}
+            disabled={disabled}
+            multiple={multiline}
+            value={query}
+            placeholder={placeholder}
+            className={getClassnames()}
+        />
+    }
+
+    return <div className="input__wrapper">
+        {getLabel()}
+        <div className="input__container">
+            {renderLeftIcon()}
+            {renderInput()}
             {renderRightIcon()}
         </div>
         <div className={cn("input__message", { "input__message--error": error })}>
@@ -151,6 +172,7 @@ Input.defaultProps = {
     value: ``,
     placeholder: ``,
     title: ``,
+    multiline: false,
     warming: false,
     error: false,
     disabled: false
@@ -158,6 +180,7 @@ Input.defaultProps = {
 
 Input.propTypes = {
     maxLength: PropTypes.number,
+    multiline: PropTypes.bool,
     label: PropTypes.string,
     disabled: PropTypes.bool,
     message: PropTypes.string,

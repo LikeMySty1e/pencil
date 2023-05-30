@@ -1,0 +1,43 @@
+.button__native {
+  background: none;
+  color: inherit;
+  border: none;
+  padding: 0;
+  font: inherit;
+  cursor: pointer;
+  outline: inherit;
+}
+
+.button {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  align-items: center;
+  vertical-align: center;
+  min-width: 120px;
+  padding: 12px 0;
+  margin: 0 auto;
+  user-select: none;
+  cursor: pointer;
+
+  border-radius: 8px;
+  transition: all linear 175ms;
+}
+
+.button--primary {
+  color: var(--white);
+  background-color: var(--primary);
+}
+
+.button--primary:disabled {
+  color: var(--black-400);
+  background-color: var(--black-700);
+}
+
+.button--primary:hover {
+  background-color: var(--primary-700);
+}
+
+.button--primary:active {
+  background-color: var(--primary-900);
+}

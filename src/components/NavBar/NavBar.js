@@ -2,7 +2,8 @@ import React from 'react';
 import {observer} from "mobx-react-lite";
 import cn from "classnames";
 import {NavLink} from "react-router-dom";
-import {MAIN_ROUTE} from "../../resources/consts";
+import {Dropdown} from "react-bootstrap";
+import {ART_ROUTE, MAIN_ROUTE} from "../../resources/consts";
 import {Context} from "../../index";
 import { ReactComponent as SearchIcon } from '../../icons/search.m.svg';
 import Input, {InputType, InputIcon} from "../common/Input";
@@ -10,8 +11,9 @@ import AuthModal from "./components/AuthModal/AuthModal";
 import './style.m.scss';
 
 const NavBar = observer(() => {
-    // const {main} = React.useContext(Context);
+    const {main} = React.useContext(Context);
     const [query, setQuery] = React.useState(``);
+    const [isShow, setIsShow] = React.useState(false);
     const [modalVisible, setModalVisible] = React.useState(false);
 
     return <div className="navigation">
@@ -23,7 +25,7 @@ const NavBar = observer(() => {
             <NavLink className={cn("tab", { "tab--active": false })} to={MAIN_ROUTE}>
                 Обучение
             </NavLink>
-            <NavLink className={cn("tab", { "tab--active": false })} to={MAIN_ROUTE}>
+            <NavLink className={cn("tab", { "tab--active": false })} to={ART_ROUTE}>
                 Работа
             </NavLink>
         </div>
@@ -40,10 +42,26 @@ const NavBar = observer(() => {
             placeholder={"Поиск проекта или автора"}
             onChange={value => setQuery(value)}
         />
-        <div
-            className="profile--mini"
-            onClick={() => setModalVisible(!modalVisible)}
-        />
+        <Dropdown show={isShow}  autoClose={"outside"}>
+            {/*<Dropdown.Toggle className="profile--dropdown">*/}
+                <div className="profile--mini" onClick={() => setIsShow(!isShow)} />
+            {/*</Dropdown.Toggle>*/}
+
+            <Dropdown.Menu style={{ right: `0`, top: `calc(100% + 10px)` }} variant={"dark"}>
+                <Dropdown.Item onClick={() => {
+                    setIsShow(false);
+                    setModalVisible(!modalVisible);
+                }}>
+                    Профиль
+                </Dropdown.Item>
+                <Dropdown.Item onClick={() => {
+                    setIsShow(false);
+                    main.unauthorize();
+                }}>
+                    Выйти
+                </Dropdown.Item>
+            </Dropdown.Menu>
+        </Dropdown>
 
         <AuthModal
             handleClose={() => setModalVisible(false)}

@@ -1,0 +1,22 @@
+.my__section {
+  width: 100%;
+  padding: 32px;
+  margin-bottom: 28px;
+  border-radius: 12px;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 140%;
+  color: var(--black-400);
+  background-color: var(--black-800);
+}
+
+.section__header {
+  padding-bottom: 12px;
+  margin-bottom: 20px;
+  width: 100%;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 120%;
+  color: var(--white);
+  border-bottom: 1px solid var(--black-600);
+}

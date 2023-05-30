@@ -1,5 +1,6 @@
-import {MAIN_ROUTE, PROFILE_ROUTE} from "./resources/consts";
+import {ART_ROUTE, MAIN_ROUTE, PROFILE_ROUTE} from "./resources/consts";
 import Main from "./pages/Main/Main";
+import Creation from "./pages/Art/Creation/Creation";
 
 export const unauthorisedRoutes = [
     {
@@ -16,5 +17,9 @@ export const authorisedRoutes = [
     {
         path: PROFILE_ROUTE,
         Component: `Profile`
+    },
+    {
+        path: ART_ROUTE,
+        Component: Creation
     }
 ]

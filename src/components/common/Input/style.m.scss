@@ -79,6 +79,12 @@
     border: 1px solid var(--error);
 }
 
+.input--multiline {
+    resize: none;
+    overflow-y: hidden;
+    min-height: 100px;
+}
+
 .input__label {
     margin-bottom: 5px;
     font-size: 14px;

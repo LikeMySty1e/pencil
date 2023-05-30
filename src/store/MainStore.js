@@ -23,7 +23,8 @@ export default class MainStore {
 
     init = async () => {
         this.token = localStorageHelper.getLocalToken();
-        this.isAuth = !!this.token;
+        // this.isAuth = !!this.token;
+        this.isAuth = true;
 
         await this.loadFeed();
     }
@@ -46,11 +47,11 @@ export default class MainStore {
         }
     }
 
-    login = async (email, password) => {
+    login = async (login, password) => {
         this.setLoading(`auth`, true);
 
         try {
-            const { result = {}, ok, description } = await loginUser({ login: email, password });
+            const { result = {}, ok, description } = await loginUser({ login, password });
 
             if (!ok) {
                 this.setValidationError(`auth`, description);
@@ -91,6 +92,11 @@ export default class MainStore {
         } finally {
             this.setLoading(`auth`, false);
         }
+    }
+
+    unauthorize = () => {
+        this.isAuth = false;
+        localStorageHelper.deleteLocalToken();
     }
 
     setValidationError = (field, value) => {
