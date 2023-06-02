@@ -1,0 +1,22 @@
+.tableimage__container {
+  position: relative;
+  width: 246px;
+  height: 246px;
+  min-width: 246px;
+  min-height: 246px;
+  margin-bottom: 28px;
+  margin-right: 28px;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all linear 175ms;
+}
+
+.tableimage__container:hover {
+  transform: translateX(-5px) translateY(-5px);
+}
+
+.tableimage {
+  width: 100%;
+  height: 100%;
+  border-radius: 12px;
+}

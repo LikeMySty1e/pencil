@@ -4,7 +4,12 @@ import cn from "classnames";
 import './style.m.scss';
 
 const Section = props => {
-    const { header, classname, children } = props;
+    const {
+        header,
+        classname,
+        style,
+        children
+    } = props;
 
     const renderHeader = () => {
         if (!header) {
@@ -16,7 +21,7 @@ const Section = props => {
         </div>
     };
 
-    return <section className={cn("my__section", classname)}>
+    return <section className={cn("my__section", classname)} style={style}>
         {renderHeader()}
         {children}
     </section>;
@@ -24,6 +29,7 @@ const Section = props => {
 
 Section.propTypes = {
     header: PropTypes.string,
+    style: PropTypes.shape({}),
     classname: PropTypes.string
 };
 

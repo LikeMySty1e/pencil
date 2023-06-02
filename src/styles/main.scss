@@ -44,3 +44,10 @@ body::-webkit-scrollbar {
   font-family: 'Gilroy', sans-serif;
   overflow-y: hidden;
 }
+
+.solid__text {
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 120%;
+  color: var(--white);
+}

@@ -38,7 +38,7 @@ const Input = props => {
         return cn(
             "input",
             "input__native",
-            `input__${type}`,
+            `input--${type}`,
             classname,
             {
                 "input__error": error,
@@ -94,6 +94,7 @@ const Input = props => {
             classname={cn(
                 "icon",
                 "left__icon",
+                `left__icon--${type}`,
                 iconData.classname,
                 {
                     "icon--active": isFocused
@@ -101,7 +102,7 @@ const Input = props => {
             )}
             Icon={iconData.Icon}
         />;
-    }
+    };
 
     const renderLeftIcon = () => {
         const iconData = icons.find(icon => icon.side === InputIconEnum.right);
@@ -114,6 +115,7 @@ const Input = props => {
             classname={cn(
                 "icon",
                 "right__icon",
+                `right__icon--${type}`,
                 iconData.classname,
                 {
                     "icon--active": isFocused
@@ -150,8 +152,8 @@ const Input = props => {
             value={query}
             placeholder={placeholder}
             className={getClassnames()}
-        />
-    }
+        />;
+    };
 
     return <div className="input__wrapper">
         {getLabel()}

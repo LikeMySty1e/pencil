@@ -1,3 +1,4 @@
 export default {
-    primary: `primary`
-}
+    primary: `primary`,
+    red: `red`
+};

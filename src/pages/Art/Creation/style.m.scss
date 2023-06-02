@@ -14,3 +14,26 @@
 .creation__tags {
   padding: 16px 0;
 }
+
+.upload__container {
+  position: relative;
+  min-height: 496px;
+}
+
+.upload__block {
+  position: absolute;
+  top: calc(50% - 90px);
+  left: calc(50% - 125px);
+
+  & > .upload__icon {
+    margin: 0 85px 10px;
+  }
+
+  & > * {
+    display: block;
+    margin-bottom: 10px;
+    text-align: center;
+    vertical-align: center;
+    align-items: center;
+  }
+}

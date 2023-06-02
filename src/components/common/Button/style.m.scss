@@ -14,8 +14,9 @@
   justify-content: center;
   align-items: center;
   vertical-align: center;
+  white-space: nowrap;
   min-width: 120px;
-  padding: 12px 0;
+  padding: 10px 16px;
   margin: 0 auto;
   user-select: none;
   cursor: pointer;
@@ -40,4 +41,12 @@
 
 .button--primary:active {
   background-color: var(--primary-900);
+}
+
+.button--red,
+.button--red:hover,
+.button--red:active,
+.button--red:disabled {
+  color: var(--white);
+  background-color: var(--error);
 }

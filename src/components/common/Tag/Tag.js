@@ -15,6 +15,10 @@ const Tag = props => {
     };
 
     const renderIndicator = () => {
+        if (type === TagTypeEnum.nothing) {
+            return null;
+        }
+
         if (type === TagTypeEnum.icon && icon) {
             return <SvgIcon Icon={icon} />;
         }
@@ -42,7 +46,7 @@ Tag.propTypes = {
     checked: PropTypes.bool,
     text: PropTypes.string,
     type: PropTypes.oneOf(TagTypeEnum),
-    icon: PropTypes.element,
+    icon: PropTypes.oneOfType([PropTypes.element, PropTypes.shape({})]),
     onCheck: PropTypes.func.isRequired
 };
 

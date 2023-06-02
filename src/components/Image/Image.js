@@ -1,65 +1,104 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {observer} from "mobx-react-lite";
 import cn from "classnames";
-import {tooHigh, tooLow} from "./helpers/scrollHeightHelper";
+import Button, {Color} from "../common/Button";
+import SvgIcon from "../common/SvgIcon/SvgIcon";
+import { ReactComponent as XCircle } from "../../icons/x-circle.m.svg";
+import { ReactComponent as Arrow } from "./icons/arrow.m.svg";
 import './style.m.scss';
 
-const Image = observer(props => {
+const Image = props => {
     const {
-        url,
-        width,
-        height,
         classname,
-        imageClassname,
-        onClick
+        image,
+        index,
+        lastIndex,
+        src,
+        onSort,
+        onDelete
     } = props;
-    const imageRef = React.useRef(null);
-    const [isHidden, setIsHidden] = React.useState(false);
+    const [source, setSource] = React.useState(src || ``);
+
+    const sortUpDisabled = React.useMemo(() => index === 0, [index, lastIndex]);
+    const sortDownDisabled = React.useMemo(() => index === lastIndex - 1, [index, lastIndex]);
 
     React.useEffect(() => {
-        const check = () => setIsHidden(tooHigh(imageRef.current?.offsetTop, imageRef.current?.clientHeight)
-            || tooLow(imageRef.current?.offsetTop, imageRef.current?.clientHeight));
+        let url = ``;
 
-        window.addEventListener('scroll', check);
-        return () => window.removeEventListener('scroll', check);
-    }, []);
+        if (!src && image && typeof image === `object`) {
+            url = window.URL.createObjectURL(image);
 
-    const getStyles = () => {
-        if (!width && !height) {
-            return {};
+            setSource(url);
         }
 
-        return {
-            width,
-            height,
-            minWidth: width,
-            minHeight: height
-        };
+        return () => window.URL.revokeObjectURL(url);
+    }, []);
+
+    const sortUp = () => {
+        if (sortUpDisabled) {
+            return;
+        }
+
+        onSort(index, index - 1);
     };
 
-    return <div
-        ref={imageRef}
-        onClick={onClick}
-        className={cn("image__container", classname)}
-        style={getStyles()}
-    >
-        {!isHidden && <img className={cn("image", imageClassname)} src={url} alt="Абоба"/>}
-    </div>;
-});
+    const sortDown = () => {
+        if (sortDownDisabled) {
+            return;
+        }
 
-Image.defaultProps = {
-    width: `246px`,
-    height: `246px`
+        onSort(index, index + 1);
+    };
+
+    const renderSortButtons = () => {
+        if (!lastIndex || (sortDownDisabled && sortUpDisabled)) {
+            return null;
+        }
+
+        return <div className="image__sort">
+            <div
+                role="button"
+                className={cn("sort__button")}
+                onClick={sortUp}
+            ><SvgIcon Icon={Arrow} classname={cn("sort__icon", { "sort__disabled": sortUpDisabled })} /></div>
+            <div
+                role="button"
+                className={cn("sort__button")}
+                onClick={sortDown}
+            ><SvgIcon Icon={Arrow} classname={cn("sort__icon", { "sort__disabled": sortDownDisabled })} /></div>
+        </div>;
+    };
+
+    const renderDeleteButton = () => {
+        if (!onDelete) {
+            return null;
+        }
+
+        return <Button
+            color={Color.red}
+            classname="image__delete"
+            onClick={onDelete}
+        >
+            <SvgIcon Icon={XCircle} />
+            Удалить
+        </Button>
+    };
+
+    return <div className="image__container">
+        <img className={cn("image", classname)} src={source} alt={`Дыо, ты любишь кабачки?`} />
+        {renderSortButtons()}
+        {renderDeleteButton()}
+    </div>;
 };
 
 Image.propTypes = {
-    url: PropTypes.string,
-    width: PropTypes.string.isRequired,
-    height: PropTypes.string.isRequired,
     classname: PropTypes.string,
-    imageClassname: PropTypes.string,
-    onClick: PropTypes.func
+    index: PropTypes.number,
+    lastIndex: PropTypes.number,
+    src: PropTypes.string,
+    image: PropTypes.object,
+    onDelete: PropTypes.func,
+    onSort: PropTypes.func
 };
 
 export default Image;

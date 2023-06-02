@@ -1,0 +1,51 @@
+.autocomplete__container {
+    position: relative;
+}
+
+.autocomplete__list {
+    opacity: 0;
+    position: absolute;
+    z-index: 100;
+    top: 60px;
+    left: 0;
+    padding: 24px;
+    width: 100%;
+    max-height: 400px;
+    overflow-y: auto;
+    background-color: var(--black-700);
+    border-radius: 8px;
+    transition: all linear 175ms;
+}
+
+.autocomplete__list--showed {
+    opacity: 1;
+}
+
+.autocomplete__item {
+    padding: 12px 0;
+    color: var(--black-400);
+    cursor: pointer;
+    border-bottom: 1px solid var(--black-600);
+    transition: all linear 175ms;
+}
+
+.autocomplete__item:first-child {
+    padding-top: 0;
+}
+
+.autocomplete__item:last-child {
+    padding-bottom: 0;
+    border-bottom: none;
+}
+
+.autocomplete__item:hover {
+    color: var(--white);
+}
+
+.autocomplete__item--despicable {
+    cursor: default;
+}
+
+.autocomplete__item--despicable:hover {
+    color: var(--black-400);
+}

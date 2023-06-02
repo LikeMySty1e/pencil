@@ -33,6 +33,11 @@
 }
 
 .right__icon {
+    top: 12px;
+    right: 16px;
+}
+
+.right__icon--search {
     top: 22px;
     right: 22px;
 }
@@ -61,7 +66,7 @@
     background-color: var(--black-700);
 }
 
-.input__search {
+.input--search {
     padding: 11px 18px 11px 20px;
     margin-bottom: 0;
     border-radius: 44px;

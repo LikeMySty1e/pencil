@@ -18,6 +18,7 @@ const Button = props => {
         return cn(
             "button",
             "button__native",
+            `button--primary`,
             `button--${color}`,
             classname
         )
