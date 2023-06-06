@@ -2,83 +2,95 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import cn from "classnames";
 import {observer} from "mobx-react-lite";
-import Input from "../Input";
+import Input, {InputIcon} from "../Input";
 import ListItem from "./components/ListItem";
+import {searchInData} from "./helpers/autocompleteHelper";
+import {ReactComponent as SearchIcon} from "../../../icons/search.m.svg";
 import './style.css';
+
+let justCheckedTimeout;
+let debounceTimeout;
+
+const emptySearchResult = [{ text: `Ничего не найдено`, value: null, isNotFound: true }];
 
 const Autocomplete = observer(props => {
     const {
         data,
-        selected,
+        getData,
+        mapper,
         clearAfterSelect,
         onSelect
     } = props;
     const [query, setQuery] = React.useState(``);
+    const [queriedItems, setQueriedItems] = React.useState([]);
+    const [loading, setLoading] = React.useState(false);
     const [isListShowed, setIsListShowed] = React.useState(false);
-    const [justSelected, setJustSelected] = React.useState(true);
 
     React.useEffect(() => {
-        let selectedObj = selected;
-
-        if (typeof selected === `number`) {
-            selectedObj = data.find(el => el.value === selected) || {};
+        if (!isListShowed || (!data && !getData)) {
+            setQueriedItems([]);
         }
 
-        setQuery(selectedObj?.text || ``);
-    }, []);
-
-    const queriedItems = React.useMemo(() => {
-        if (justSelected) {
-            return [];
+        if (!query && data?.length) {
+            return setQueriedItems(data);
         }
 
-        if (!query && data.length) {
-            return data;
-        }
+        clearTimeout(debounceTimeout);
 
-        const filteredData = data.filter(item => item.text
-            .substring(0, query.length)
-            .toUpperCase()
-            .includes(`${query.toUpperCase()}`));
+        setLoading(!!getData);
 
-        if (!filteredData.length) {
-            return [{ text: `Ничего не найдено`, value: null, isNotFound: true }];
-        }
-
-        return filteredData;
+        debounceTimeout = setTimeout(() => {
+                searchInData(query, data, getData, mapper)
+                    .then(result => setQueriedItems(result || emptySearchResult))
+                    .catch(e => {
+                        console.error(e.message);
+                        setQueriedItems(emptySearchResult);
+                    })
+                    .finally(() => setLoading(false));
+            }, 350);
     }, [query, data, isListShowed]);
 
     const onChangeQuery = value => {
-        setJustSelected(false);
         setQuery(value);
     };
 
     const onItemSelect = value => {
         const selectedItem = data.find(item => item.value === value);
 
-        if (!selectedItem) {
-            throw new Error(`А как?`);
-        }
-
         setQuery(clearAfterSelect ? `` : selectedItem.text);
-        setJustSelected(true);
         setIsListShowed(false);
         onSelect && onSelect(selectedItem);
+    };
+
+    const getIcons = () => {
+        return [{
+            Icon: SearchIcon,
+            side: InputIcon.right
+        }];
+    };
+
+    const getList = () => {
+        if (loading || !queriedItems.length) {
+            return null;
+        }
+
+        return queriedItems.map(item => <ListItem {...item} onSelect={onItemSelect} />);
     };
 
     return <div className="autocomplete__container">
             <Input
                 {...props}
-                onFocus={() => {
-                    setJustSelected(false);
-                    setIsListShowed(true);
+                icons={getIcons()}
+                onFocus={() => setIsListShowed(true)}
+                onBlur={() => {
+                    clearTimeout(justCheckedTimeout);
+                    justCheckedTimeout = setTimeout(() => setIsListShowed(false), 250);
                 }}
-                onBlur={() => setIsListShowed(false)}
                 onChange={onChangeQuery}
                 value={query}
             />
-            <div className={cn("autocomplete__list", { "autocomplete__list--showed": isListShowed })}>
-                {queriedItems.map(item => <ListItem {...item} onSelect={onItemSelect} />)}
+            <div className={cn("autocomplete__list", { "autocomplete__list--showed": isListShowed && queriedItems.length })}>
+                {getList()}
             </div>
         </div>;
 });
@@ -88,6 +100,8 @@ Autocomplete.propTypes = {
         text: PropTypes.string,
         value: PropTypes.number
     })),
+    getData: PropTypes.func,
+    mapper: PropTypes.func,
     selected: PropTypes.oneOfType([PropTypes.number, PropTypes.shape({
         text: PropTypes.string,
         value: PropTypes.number

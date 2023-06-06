@@ -8,13 +8,12 @@
     z-index: 100;
     top: 60px;
     left: 0;
-    padding: 24px;
     width: 100%;
     max-height: 400px;
     overflow-y: auto;
     background-color: var(--black-700);
     border-radius: 8px;
-    transition: all linear 175ms;
+    transition: opacity linear 175ms;
 }
 
 .autocomplete__list--showed {
@@ -22,7 +21,7 @@
 }
 
 .autocomplete__item {
-    padding: 12px 0;
+    padding: 12px 24px;
     color: var(--black-400);
     cursor: pointer;
     border-bottom: 1px solid var(--black-600);
@@ -30,11 +29,11 @@
 }
 
 .autocomplete__item:first-child {
-    padding-top: 0;
+    padding-top: 24px;
 }
 
 .autocomplete__item:last-child {
-    padding-bottom: 0;
+    padding-bottom: 24px;
     border-bottom: none;
 }
 

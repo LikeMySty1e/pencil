@@ -1,8 +1,12 @@
-const DataToInt = data => {
-    const dataToInt = parseInt(data);
-
-    return isNaN(dataToInt) ? data : dataToInt;
-}
+export const mapTagsAutocomplete = (data = []) => {
+    return data.map(item => {
+        return {
+            ...item,
+            text: item.name,
+            value: item.id
+        };
+    });
+};
 
 export default {
 }

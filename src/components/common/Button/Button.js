@@ -3,12 +3,14 @@ import cn from "classnames";
 import PropTypes from 'prop-types';
 import ButtonColorEnum from "./enums/ButtonColorEnum";
 import './style.m.scss';
+import {Spinner} from "react-bootstrap";
 
 const Button = props => {
     const {
         children,
         style,
         disabled,
+        loading,
         onClick,
         color,
         classname
@@ -20,17 +22,34 @@ const Button = props => {
             "button__native",
             `button--primary`,
             `button--${color}`,
-            classname
+            classname,
+            { "button--loading": loading }
         )
+    };
+
+    const onButtonClick = e => {
+        if (loading || disabled) {
+            return;
+        }
+
+        onClick && onClick(e);
+    };
+
+    const renderContent = () => {
+        if (loading) {
+            return <Spinner animation="border" variant="secondary" />;
+        }
+
+        return children;
     };
 
     return <button
         disabled={disabled}
         className={getClassnames()}
         style={{ ...style }}
-        onClick={onClick}
+        onClick={onButtonClick}
     >
-        {children}
+        {renderContent()}
     </button>;
 };
 
@@ -42,6 +61,7 @@ Button.defaultProps = {
 Button.propTypes = {
     style: PropTypes.shape({}),
     disabled: PropTypes.bool,
+    loading: PropTypes.bool,
     onClick: PropTypes.func.isRequired,
     color: PropTypes.oneOf(ButtonColorEnum),
     classname: PropTypes.string

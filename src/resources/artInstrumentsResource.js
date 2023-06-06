@@ -5,24 +5,9 @@ import { ReactComponent as IllustratorIcon } from '../icons/instruments/illustra
 import { ReactComponent as PhotoshopIcon } from '../icons/instruments/photoshop.m.svg';
 
 export default {
-    Sai: {
-        Icon: SaiIcon,
-        value: `Sai`
-    },
-    Krita: {
-        Icon: KritaIcon,
-        value: `Krita`
-    },
-    Blender: {
-        Icon: BlenderIcon,
-        value: `Blender`
-    },
-    Illustrator: {
-        Icon: IllustratorIcon,
-        value: `Illustrator`
-    },
-    Photoshop: {
-        Icon: PhotoshopIcon,
-        value: `Photoshop`
-    }
+    Sai: SaiIcon,
+    Krita: KritaIcon,
+    Blender: BlenderIcon,
+    Illustrator: IllustratorIcon,
+    Photoshop: PhotoshopIcon
 }

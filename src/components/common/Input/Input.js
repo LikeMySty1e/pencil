@@ -10,7 +10,7 @@ import './style.m.scss';
 const Input = props => {
     const {
         label,
-        // maxLength,
+        // loading,
         multiline,
         disabled,
         classname,
@@ -183,6 +183,7 @@ Input.defaultProps = {
 Input.propTypes = {
     maxLength: PropTypes.number,
     multiline: PropTypes.bool,
+    // loading: PropTypes.bool,
     label: PropTypes.string,
     disabled: PropTypes.bool,
     message: PropTypes.string,
