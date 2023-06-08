@@ -60,6 +60,18 @@ const Creation = observer(() => {
         updateArtModel([...art.files, ...filteredImageFiles], `files`);
     };
 
+    const onAddTag = tag => {
+        if (!tag) {
+            return;
+        }
+
+        if (art.tags.find(t => t.id === tag.id)) {
+            return;
+        }
+
+        updateArtModel([...art.tags, tag], `tags`);
+    };
+
     const sortImages = (aIndex, bIndex) => {
         let newFiles = art.files;
         [newFiles[aIndex], newFiles[bIndex]] = [newFiles[bIndex], newFiles[aIndex]];
@@ -78,7 +90,7 @@ const Creation = observer(() => {
                 <Input
                     label={"Описание"}
                     placeholder={"Введите описание работы"}
-                    onChange={value => updateArtModel(value, `name`)}
+                    onChange={value => updateArtModel(value, `description`)}
                     multiline
                 />
             </Section>
@@ -87,8 +99,8 @@ const Creation = observer(() => {
                 <div className="creation__tags">
                     {main.areas.map(area => <Tag
                         text={area.name}
-                        checked={art.areas.includes(area.id)}
-                        onCheck={() => onModelCheck(area.id, `areas`, 3)}
+                        checked={art.areasCreativity.includes(area.id)}
+                        onCheck={() => onModelCheck(area.id, `areasCreativity`, 3)}
                     />)}
                 </div>
             </Section>
@@ -98,8 +110,8 @@ const Creation = observer(() => {
                         text={tool.name}
                         type={Type.icon}
                         icon={artInstrumentsResource[tool.name]}
-                        checked={art.instruments.includes(tool.id)}
-                        onCheck={() => onModelCheck(tool.id, `instruments`, 1)}
+                        checked={art.usedTools.includes(tool.id)}
+                        onCheck={() => onModelCheck(tool.id, `usedTools`, 1)}
                     />)}
                 </div>
             </Section>
@@ -107,15 +119,16 @@ const Creation = observer(() => {
                 <Autocomplete
                     getData={getTagsAutocomplete}
                     mapper={mapTagsAutocomplete}
-                    onSelect={item => updateArtModel([...art.tags, item], `tags`)}
+                    onSelect={tag => onAddTag(tag)}
                     placeholder={`Введите тег`}
+                    allowAddNew
                     clearAfterSelect
                 />
                 <div className="creation__tags">
                     {art.tags.map(tag => <Tag
                         type={Type.nothing}
-                        text={tag.name}
-                        onCheck={() => updateArtModel(art.tags.filter(t => t.id !== tag.id))}
+                        text={tag.name || tag.text}
+                        onCheck={() => updateArtModel(art.tags.filter(t => t.text !== tag.text), `tags`)}
                     />)}
                 </div>
             </Section>
@@ -170,8 +183,8 @@ const Creation = observer(() => {
         return <React.Fragment>
             <Section>
                 <Button
-                    loading={true}
-                    onClick={() => console.log(`Cum`)}
+                    loading={main.loading.saveArt}
+                    onClick={() => main.saveArt(art)}
                     style={{ width: `100%` }}
                 >
                     <SvgIcon Icon={PostIcon} />

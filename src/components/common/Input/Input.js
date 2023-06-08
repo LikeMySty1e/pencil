@@ -20,6 +20,7 @@ const Input = props => {
         message,
         value,
         onChange,
+        onKeyDown,
         onFocus,
         onInput,
         onBlur,
@@ -68,6 +69,10 @@ const Input = props => {
     const onInputChange = e => {
         setQuery(e.target.value);
         onChange && onChange(e.target.value, e);
+    };
+
+    const onInputKeyDown = e => {
+        onKeyDown && onKeyDown(e);
     };
 
     const getLabel = () => {
@@ -147,6 +152,7 @@ const Input = props => {
             onInput={onInputActuallyInput}
             onFocus={onInputFocus}
             onBlur={onInputBlur}
+            onKeyDown={onInputKeyDown}
             disabled={disabled}
             multiple={multiline}
             value={query}
@@ -194,10 +200,11 @@ Input.propTypes = {
     type: PropTypes.oneOf(Object.values(InputTypeEnum)),
     icons: PropTypes.arrayOf(PropTypes.shape({})),
     value: PropTypes.oneOfType([PropTypes.string, PropTypes.number, null]),
+    onKeyDown: PropTypes.func,
     onChange: PropTypes.func,
     onInput: PropTypes.func,
-    onBlur: PropTypes.func,
-    onFocus: PropTypes.func
+    onFocus: PropTypes.func,
+    onBlur: PropTypes.func
 };
 
 export default Input;

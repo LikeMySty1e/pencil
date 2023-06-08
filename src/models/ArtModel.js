@@ -1,8 +1,8 @@
 export default {
     name: ``,
     description: ``,
-    areas: [],
+    areasCreativity: [],
     tags: [],
     files: [],
-    instruments: []
+    usedTools: []
 }

@@ -17,6 +17,7 @@ const Autocomplete = observer(props => {
     const {
         data,
         getData,
+        allowAddNew,
         mapper,
         clearAfterSelect,
         onSelect
@@ -25,6 +26,7 @@ const Autocomplete = observer(props => {
     const [queriedItems, setQueriedItems] = React.useState([]);
     const [loading, setLoading] = React.useState(false);
     const [isListShowed, setIsListShowed] = React.useState(false);
+    const itemToAdd = { text: query, value: null };
 
     React.useEffect(() => {
         if (!isListShowed || (!data && !getData)) {
@@ -40,26 +42,37 @@ const Autocomplete = observer(props => {
         setLoading(!!getData);
 
         debounceTimeout = setTimeout(() => {
-                searchInData(query, data, getData, mapper)
-                    .then(result => setQueriedItems(result || emptySearchResult))
+                searchInData(query, data, getData, mapper, emptySearchResult)
+                    .then(result => setQueriedItems(result))
                     .catch(e => {
                         console.error(e.message);
                         setQueriedItems(emptySearchResult);
                     })
                     .finally(() => setLoading(false));
             }, 350);
-    }, [query, data, isListShowed]);
+    }, [query, data]);
 
     const onChangeQuery = value => {
         setQuery(value);
     };
 
-    const onItemSelect = value => {
-        const selectedItem = data.find(item => item.value === value);
+    const onItemSelect = (value, isNew = false) => {
+        let selectedItem = itemToAdd;
+
+        if (!isNew) {
+            selectedItem = queriedItems.find(item => item.value === value);
+        }
 
         setQuery(clearAfterSelect ? `` : selectedItem.text);
         setIsListShowed(false);
         onSelect && onSelect(selectedItem);
+    };
+
+    const keyDownHandler = event => {
+        if (allowAddNew && event.key === 'Enter') {
+            event.preventDefault();
+            onItemSelect(null, true);
+        }
     };
 
     const getIcons = () => {
@@ -70,7 +83,7 @@ const Autocomplete = observer(props => {
     };
 
     const getList = () => {
-        if (loading || !queriedItems.length) {
+        if (loading || !queriedItems?.length) {
             return null;
         }
 
@@ -87,6 +100,7 @@ const Autocomplete = observer(props => {
                     justCheckedTimeout = setTimeout(() => setIsListShowed(false), 250);
                 }}
                 onChange={onChangeQuery}
+                onKeyDown={keyDownHandler}
                 value={query}
             />
             <div className={cn("autocomplete__list", { "autocomplete__list--showed": isListShowed && queriedItems.length })}>
@@ -94,6 +108,11 @@ const Autocomplete = observer(props => {
             </div>
         </div>;
 });
+
+Autocomplete.defaultProps = {
+    allowAddNew: false,
+    clearAfterSelect: true
+};
 
 Autocomplete.propTypes = {
     data: PropTypes.arrayOf(PropTypes.shape({
@@ -107,11 +126,12 @@ Autocomplete.propTypes = {
         value: PropTypes.number
     })]),
     onSelect: PropTypes.func,
+    allowAddNew: PropTypes.bool,
+    clearAfterSelect: PropTypes.bool,
     label: PropTypes.string,
     disabled: PropTypes.bool,
     warning: PropTypes.bool,
     message: PropTypes.string,
-    clearAfterSelect: PropTypes.bool,
     error: PropTypes.bool,
     classname: PropTypes.string,
     placeholder: PropTypes.string

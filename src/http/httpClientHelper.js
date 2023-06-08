@@ -1,43 +1,50 @@
 import axios from "axios";
+import localStorageHelper from "../helpers/localStorageHelper";
 
 const $host = axios.create({
     baseURL: process.env.REACT_APP_API_ENDPOINT
 });
 
-const handleRequest = async (request) => {
-    const response = await request();
+const getConfig = () => {
+    const token = localStorageHelper.getLocalToken();
 
-    // noinspection EqualityComparisonWithCoercionJS
-    // if (response.status == `401`) {
-    //     localStorageHelper.deleteLocalToken();
-    //     window.location.replace(`/auth`);
-    //
-    //     return { status: StatusEnum.Unauthorized, data: {} };
-    // }
+    if (!token) {
+        return {};
+    }
+
+    return { headers: { authorization: `Bearer ${token}` } };
+}
+
+const handleRequest = async (request, useConfig) => {
+    const response = await request(useConfig ? getConfig() : {});
 
     return response;
 }
 
 const httpClientHelper = {
-    async post(url, data) {
-        const response = await handleRequest(() => $host.post(url, { ...data }));
+    async post(url, data, useConfig = true) {
+        const request = (config = {}) => $host.post(url, { ...data }, config);
+        const response = await handleRequest(request, useConfig);
 
         return response.data || {};
     },
 
-    async get(url, options = {}) {
-        const response = await handleRequest(() => $host.get(url, options));
+    async get(url, useConfig = true) {
+        const request = (config = {}) => $host.get(url, config);
+        const response = await handleRequest(request, useConfig);
 
         return response.data || {};
     },
 
-    async upload(url, data = {}) {
-        const file = data.file || {};
+    async upload(url, files = [], data = {}, useConfig = true) {
         const body = new FormData();
 
-        body.append('file', file);
+        Array.from(files).forEach(file => body.append(`files`, file));
+        Object.entries(data).forEach(([key, value]) => body.append(key, value));
 
-        const response = await handleRequest(() => $host.post(url, body));
+
+        const request = (config = {}) => $host.post(url, body, config);
+        const response = await handleRequest(request, useConfig);
 
         return response.data || {};
     }

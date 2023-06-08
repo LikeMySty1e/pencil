@@ -1,5 +1,5 @@
 const localStorageKeys = {
-    tokenKey: `authorisationLocalToken`
+    tokenKey: `authorisationPencilLocalToken`
 }
 
 const localStorageHelper = {

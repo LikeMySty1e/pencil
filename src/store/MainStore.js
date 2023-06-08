@@ -1,7 +1,8 @@
 import {makeAutoObservable} from 'mobx';
 import {getFeed, loginUser, registrateUser} from "../services/userDataService";
 import localStorageHelper from "../helpers/localStorageHelper";
-import {getAreas, getTools} from "../services/artDataService";
+import {getAreas, getTools, saveArt} from "../services/artDataService";
+import {mapArtToSave} from "../helpers/mapper";
 
 export default class MainStore {
     token = null;
@@ -16,7 +17,8 @@ export default class MainStore {
         feed: true,
         meta: true,
         art: false,
-        auth: false,
+        saveArt: false,
+        auth: false
     };
 
     constructor() {
@@ -28,8 +30,7 @@ export default class MainStore {
 
     init = async () => {
         this.token = localStorageHelper.getLocalToken();
-        // this.isAuth = !!this.token;
-        this.isAuth = true;
+        this.isAuth = !!this.token;
 
         await this.loadMeta();
         await this.loadFeed();
@@ -123,6 +124,22 @@ export default class MainStore {
     unauthorize = () => {
         this.isAuth = false;
         localStorageHelper.deleteLocalToken();
+    }
+
+    saveArt = async (art = {}) => {
+        this.setLoading(`saveArt`, true);
+
+        const [files, data] = mapArtToSave(art);
+
+        try {
+            const { ok } = await saveArt(files, data);
+
+            return ok;
+        } catch (e) {
+            console.error(e.message);
+        } finally {
+            this.setLoading(`saveArt`, false);
+        }
     }
 
     setValidationError = (field, value) => {

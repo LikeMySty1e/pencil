@@ -1,21 +1,21 @@
-export const searchInData = async (query = ``, data, getData, mapper) => {
+export const searchInData = async (query = ``, data, getData, mapper, emptySearchResult = []) => {
     if (!query) {
         return [];
     }
 
     if (!data && getData) {
         try {
-            const result = await getData(query);
+            const response = await getData(query);
 
-            if (result.hasOwnProperty(`ok`) && !result.ok) {
+            if (response.hasOwnProperty(`ok`) && !response.ok) {
                 throw new Error(`Ошибка получения данных автокомплита`);
             }
 
             if (mapper) {
-                return mapper(result);
+                return mapper(response.result, emptySearchResult);
             }
 
-            return result || [];
+            return response.result || [];
         } catch (e) {
             console.error(e.message);
         }
