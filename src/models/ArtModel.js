@@ -1,5 +1,5 @@
 export default {
-    name: ``,
+    title: ``,
     description: ``,
     areasCreativity: [],
     tags: [],

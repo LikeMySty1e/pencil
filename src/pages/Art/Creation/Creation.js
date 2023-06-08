@@ -83,11 +83,13 @@ const Creation = observer(() => {
         return <React.Fragment>
             <Section header={"Информация о проекте"}>
                 <Input
+                    value={art.title}
                     label={"Название работы"}
                     placeholder={"Введите название работы"}
-                    onChange={value => updateArtModel(value, `name`)}
+                    onChange={value => updateArtModel(value, `title`)}
                 />
                 <Input
+                    value={art.description}
                     label={"Описание"}
                     placeholder={"Введите описание работы"}
                     onChange={value => updateArtModel(value, `description`)}

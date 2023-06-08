@@ -40,7 +40,15 @@ const httpClientHelper = {
         const body = new FormData();
 
         Array.from(files).forEach(file => body.append(`files`, file));
-        Object.entries(data).forEach(([key, value]) => body.append(key, value));
+        Object.entries(data).forEach(([key, value]) => {
+            if (Array.isArray(data[key])) {
+                Object.entries(data[key]).forEach(([, val]) => body.append(key, val));
+
+                return;
+            }
+
+            body.append(key, value);
+        });
 
 
         const request = (config = {}) => $host.post(url, body, config);
