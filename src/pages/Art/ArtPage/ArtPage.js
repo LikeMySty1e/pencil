@@ -25,12 +25,6 @@ const ArtPage = observer(props => {
         main.loadArt(id);
     }, []);
 
-    React.useEffect(() => {
-        if (expanded && anchor.current) {
-            window.scrollTo({ top: anchor.current.offsetHeight, behavior: 'smooth' });
-        }
-    }, [expanded, anchor.current]);
-
     const renderAside = () => {
         return <React.Fragment>
             <Section size={Size.mini}>
@@ -65,7 +59,7 @@ const ArtPage = observer(props => {
                     />)}
                 </div>
             </Section>
-            <Section header={"Теги"} style={{ minHeight: `260px` }}>
+            <Section header={"Теги"}>
                 <div className="creation__tags">
                     {main.art.tags.map(tag => <Tag
                         type={Type.nothing}
@@ -124,12 +118,12 @@ const ArtPage = observer(props => {
     };
 
     if (main.loading.art) {
-        return <Container padding={`3.75vw 7.5vw`}>
+        return <Container padding={`3.75vw 15vw`}>
             <Spinner className="feed__loader" animation="border" variant="secondary" />
         </Container>;
     }
 
-    return <Container padding={`calc(3.75vw - 20px) 7.5vw`}>
+    return <Container padding={`calc(3.75vw - 20px) 15vw`}>
             <div className="art__header">
                 <div className="art__title">{main.art.title}</div>
                 <div className="art__date">Опубликовано: {new Date(main.art.createDate).toLocaleDateString()}</div>

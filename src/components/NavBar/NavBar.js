@@ -43,9 +43,7 @@ const NavBar = observer(() => {
             onChange={value => setQuery(value)}
         />
         <Dropdown show={isShow}  autoClose={"outside"}>
-            {/*<Dropdown.Toggle className="profile--dropdown">*/}
-                <div className="profile--mini" onClick={() => setIsShow(!isShow)} />
-            {/*</Dropdown.Toggle>*/}
+            <div className="profile--mini" onClick={() => setIsShow(!isShow)} />
 
             <Dropdown.Menu style={{ right: `0`, top: `calc(100% + 10px)` }} variant={"dark"}>
                 <Dropdown.Item onClick={() => {
