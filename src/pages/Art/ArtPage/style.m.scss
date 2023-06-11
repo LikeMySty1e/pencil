@@ -1,0 +1,111 @@
+.art__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  color: var(--white);
+}
+
+.art__title {
+  margin-bottom: 20px;
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 120%;
+}
+
+.art__date {
+  font-weight: 500;
+  font-size: 15px;
+  line-height: 120%;
+  color: var(--black-500);
+}
+
+.art__block {
+  display: flex;
+}
+
+.art__main {
+  width: 70%;
+  margin-right: 28px;
+}
+
+.art__aside {
+  width: 30%;
+}
+
+.author__name {
+  margin-left: 10px;
+  color: var(--white);
+}
+
+.art__images {
+  position: relative;
+  width: border-box;
+  margin-bottom: 28px;
+}
+
+.art__image {
+  margin: 0;
+}
+
+.art__controls {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  min-height: 64px;
+  padding: 10px 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom-left-radius: 12px;
+  border-bottom-right-radius: 12px;
+  background-color: var(--white);
+}
+
+.art__count {
+  min-width: 180px;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 120%;
+  letter-spacing: 5px;
+}
+
+.art__extras {
+  min-width: 180px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.controls__icon {
+  fill: var(--black-500);
+  margin-right: 10px;
+
+  &:hover {
+    fill: var(--black-700);
+  }
+}
+
+.controls__icon--text {
+  margin-right: 18px;
+  color: var(--black-500);
+  user-select: none;
+
+  &:hover {
+    color: var(--black-700);
+  }
+}
+
+.art__controls:before {
+  position: absolute;
+  content: "";
+  top: -100%;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.0001) 0%, rgba(255, 255, 255, 0.0156863) 9.22%, rgba(255, 255, 255, 0.054902) 18.76%, rgba(255, 255, 255, 0.117647) 28.48%, rgba(255, 255, 255, 0.2) 38.19%, rgba(255, 255, 255, 0.290196) 47.75%, rgba(255, 255, 255, 0.392157) 56.99%, rgba(255, 255, 255, 0.501961) 65.75%, rgba(255, 255, 255, 0.607843) 73.87%, rgba(255, 255, 255, 0.709804) 81.18%, rgba(255, 255, 255, 0.8) 87.52%, rgba(255, 255, 255, 0.882353) 92.74%, rgba(255, 255, 255, 0.945098) 96.66%, rgba(255, 255, 255, 0.984314) 99.14%, #FFFFFF 100%);
+}
+
+.art__description {
+  color: var(--white);
+}

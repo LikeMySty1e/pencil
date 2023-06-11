@@ -47,7 +47,7 @@ Tag.propTypes = {
     text: PropTypes.string,
     type: PropTypes.oneOf(TagTypeEnum),
     icon: PropTypes.oneOfType([PropTypes.element, PropTypes.shape({})]),
-    onCheck: PropTypes.func.isRequired
+    onCheck: PropTypes.func
 };
 
 export default Tag;

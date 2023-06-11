@@ -9,7 +9,7 @@ import Button from "../../../components/common/Button";
 import SvgIcon from "../../../components/common/SvgIcon/SvgIcon";
 import Image from "../../../components/Image";
 import Autocomplete from "../../../components/common/Autocomplete";
-import ArtModel from "../../../models/ArtModel";
+import ArtModel from "../../../models/ArtCreationModel";
 import { ReactComponent as PostIcon } from "../../../icons/post.m.svg";
 import { ReactComponent as FileIcon } from "../../../icons/file.m.svg";
 import {getTagsAutocomplete} from "../../../services/artDataService";
@@ -65,7 +65,7 @@ const Creation = observer(() => {
             return;
         }
 
-        if (art.tags.find(t => t.id === tag.id)) {
+        if (tag.id && art.tags.find(t => t.id === tag.id)) {
             return;
         }
 
@@ -197,12 +197,12 @@ const Creation = observer(() => {
     };
 
     if (main.loading.meta) {
-        return <Container padding={`70px 40px 0 7.5vw`}>
+        return <Container padding={`3.75vw 7.5vw`}>
             <Spinner className="feed__loader" animation="border" variant="secondary" />
         </Container>;
     }
 
-    return <Container padding={`70px 40px 0 7.5vw`}>
+    return <Container padding={`3.75vw 7.5vw`}>
         <div className="creation__block">
             <div className="creation__main">
                 {renderMainContent()}

@@ -3,7 +3,7 @@ import {observer} from "mobx-react-lite";
 import cn from "classnames";
 import {NavLink} from "react-router-dom";
 import {Dropdown} from "react-bootstrap";
-import {ART_ROUTE, MAIN_ROUTE} from "../../resources/consts";
+import {CREATE_ROUTE, MAIN_ROUTE} from "../../resources/consts";
 import {Context} from "../../index";
 import { ReactComponent as SearchIcon } from '../../icons/search.m.svg';
 import Input, {InputType, InputIcon} from "../common/Input";
@@ -25,7 +25,7 @@ const NavBar = observer(() => {
             <NavLink className={cn("tab", { "tab--active": false })} to={MAIN_ROUTE}>
                 Обучение
             </NavLink>
-            <NavLink className={cn("tab", { "tab--active": false })} to={ART_ROUTE}>
+            <NavLink className={cn("tab", { "tab--active": false })} to={CREATE_ROUTE}>
                 Работа
             </NavLink>
         </div>

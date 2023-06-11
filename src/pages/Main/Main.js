@@ -8,7 +8,13 @@ import Feed from "./components/Feed/Feed";
 import './style.m.css';
 
 const Main = observer(() => {
-    // const {main} = useContext(Context);
+    const {main} = useContext(Context);
+
+    React.useEffect(() => {
+        main.loadFeed();
+
+        return () => main.clearFeed()
+    }, []);
 
     return <Container padding={`70px 40px 0 7.5vw`}>
         <MainHeader />

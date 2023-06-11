@@ -10,6 +10,10 @@
   background-color: var(--black-800);
 }
 
+.my__section--flex {
+  display: flex;
+}
+
 .section__header {
   padding-bottom: 12px;
   margin-bottom: 20px;
@@ -19,4 +23,8 @@
   line-height: 120%;
   color: var(--white);
   border-bottom: 1px solid var(--black-600);
+}
+
+.my__section--mini {
+  padding: 20px;
 }

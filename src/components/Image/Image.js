@@ -4,8 +4,10 @@ import cn from "classnames";
 import Button, {Color} from "../common/Button";
 import SvgIcon from "../common/SvgIcon/SvgIcon";
 import { ReactComponent as XCircle } from "../../icons/x-circle.m.svg";
+import { ReactComponent as Save } from "../../icons/save.m.svg";
 import { ReactComponent as Arrow } from "./icons/arrow.m.svg";
 import './style.m.scss';
+import {Spinner} from "react-bootstrap";
 
 const Image = props => {
     const {
@@ -15,9 +17,11 @@ const Image = props => {
         lastIndex,
         src,
         onSort,
+        onSave,
         onDelete
     } = props;
     const [source, setSource] = React.useState(src || ``);
+    const [loading, setLoading] = React.useState(true);
 
     const sortUpDisabled = React.useMemo(() => index === 0, [index, lastIndex]);
     const sortDownDisabled = React.useMemo(() => index === lastIndex - 1, [index, lastIndex]);
@@ -51,7 +55,7 @@ const Image = props => {
     };
 
     const renderSortButtons = () => {
-        if (!lastIndex || (sortDownDisabled && sortUpDisabled)) {
+        if (!lastIndex || (sortDownDisabled && sortUpDisabled) || loading) {
             return null;
         }
 
@@ -70,7 +74,7 @@ const Image = props => {
     };
 
     const renderDeleteButton = () => {
-        if (!onDelete) {
+        if (!onDelete || loading) {
             return null;
         }
 
@@ -84,10 +88,32 @@ const Image = props => {
         </Button>
     };
 
-    return <div className="image__container">
-        <img className={cn("image", classname)} src={source} alt={`Дыо, ты любишь кабачки?`} />
+    const renderSaveButton = () => {
+        if (!onSave || loading) {
+            return null;
+        }
+
+        return <Button
+            onClick={onSave}
+            classname="image__save"
+        >
+            <SvgIcon Icon={Save} />
+            Сохранить
+        </Button>
+    };
+
+    return <div className={cn("image__container", classname, { "image__container--loading": loading })}>
+        {loading && <Spinner className="image__loader" animation="border" variant="secondary" />}
+        <img
+            className={cn("image", classname)}
+            style={{ display: loading ? `none`: "block" }}
+            src={source}
+            alt={`Дыо, ты любишь кабачки?`}
+            onLoad={() => setLoading(false)}
+        />
         {renderSortButtons()}
         {renderDeleteButton()}
+        {renderSaveButton()}
     </div>;
 };
 
@@ -98,6 +124,7 @@ Image.propTypes = {
     src: PropTypes.string,
     image: PropTypes.object,
     onDelete: PropTypes.func,
+    onSave: PropTypes.func,
     onSort: PropTypes.func
 };
 

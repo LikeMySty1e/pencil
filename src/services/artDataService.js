@@ -16,6 +16,10 @@ export const saveArt = (files, data) => {
     return httpClientHelper.upload(`/artwork`, files, data);
 };
 
+export const getArt = (id = ``) => {
+    return httpClientHelper.get(`/artwork/${id}`);
+};
+
 export default {
     getTools,
     getAreas,

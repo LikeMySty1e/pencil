@@ -1,8 +1,10 @@
 import {makeAutoObservable} from 'mobx';
 import {getFeed, loginUser, registrateUser} from "../services/userDataService";
 import localStorageHelper from "../helpers/localStorageHelper";
-import {getAreas, getTools, saveArt} from "../services/artDataService";
+import {getAreas, getArt, getTools, saveArt} from "../services/artDataService";
 import {mapArtToSave} from "../helpers/mapper";
+import ArtModel from "../models/ArtModel";
+import {ART_ROUTE} from "../resources/consts";
 
 export default class MainStore {
     token = null;
@@ -10,11 +12,12 @@ export default class MainStore {
     feed = [];
     tools = [];
     areas = [];
+    art = { ...ArtModel };
     validationState = {
         auth: ``
     };
     loading = {
-        feed: true,
+        feed: false,
         meta: true,
         art: false,
         saveArt: false,
@@ -57,6 +60,10 @@ export default class MainStore {
     }
 
     loadFeed = async () => {
+        if (this.loading.feed) {
+            return;
+        }
+
         this.setLoading(`feed`, true);
 
         try {
@@ -126,13 +133,35 @@ export default class MainStore {
         localStorageHelper.deleteLocalToken();
     }
 
+    loadArt = async (id = ``) => {
+        this.setLoading(`art`, true);
+
+        try {
+            const { ok, result } = await getArt(id);
+
+            if (!ok) {
+                throw new Error(`Ошибка загрузки произведения`);
+            }
+
+            this.art = { ...ArtModel, ...result };
+        } catch (e) {
+            console.error(e.message);
+        } finally {
+            this.setLoading(`art`, false);
+        }
+    }
+
     saveArt = async (art = {}) => {
         this.setLoading(`saveArt`, true);
 
         const [files, data] = mapArtToSave(art);
 
         try {
-            const { ok } = await saveArt(files, data);
+            const { ok, result } = await saveArt(files, data);
+
+            if (ok && result) {
+                window.location.replace(`${ART_ROUTE}/${result}`);
+            }
 
             return ok;
         } catch (e) {
@@ -152,6 +181,10 @@ export default class MainStore {
         if (this.loading.hasOwnProperty(field)) {
             this.loading[field] = !!value;
         }
+    }
+
+    clearFeed = () => {
+        this.feed = [];
     }
 
     get isValid() {

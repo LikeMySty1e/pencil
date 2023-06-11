@@ -4,6 +4,7 @@ import {observer} from "mobx-react-lite";
 import {Context} from "../../../../index";
 import TableImage from "../../../../components/TableImage";
 import './style.m.scss';
+import {ART_ROUTE} from "../../../../resources/consts";
 
 const Feed = observer(() => {
     const {main} = useContext(Context);
@@ -17,7 +18,7 @@ const Feed = observer(() => {
             url={pic.previewUrl}
             width={`12vw`}
             height={`12vw`}
-            onClick={() => console.log(pic.id)}
+            onClick={() => window.location.replace(`${ART_ROUTE}/${pic.id}`)}
         />);
     }
 
