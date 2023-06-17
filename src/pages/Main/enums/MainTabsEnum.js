@@ -1,5 +1,5 @@
 export default {
-    moderate: `moderate`,
+    moderated: `moderated`,
     popular: `popular`,
-    feed: `feed`
+    feed: `my`
 }

@@ -7,9 +7,11 @@ export const Context = React.createContext(null);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-    <Context.Provider value={{
-      main: new MainStore()
-    }}>
-    <App />
+    <Context.Provider
+        value={{
+          main: new MainStore()
+        }}
+    >
+        <App />
     </Context.Provider>
 );

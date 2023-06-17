@@ -3,8 +3,8 @@ import {Spinner} from "react-bootstrap";
 import {observer} from "mobx-react-lite";
 import {Context} from "../../../../index";
 import TableImage from "../../../../components/TableImage";
-import './style.m.scss';
 import {ART_ROUTE} from "../../../../resources/consts";
+import './style.m.scss';
 
 const Feed = observer(() => {
     const {main} = useContext(Context);

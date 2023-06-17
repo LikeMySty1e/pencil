@@ -16,6 +16,17 @@
     transition: opacity linear 175ms;
 }
 
+.autocomplete__list::-webkit-scrollbar {
+    width: 2px; /* ширина scrollbar */
+}
+.autocomplete__list::-webkit-scrollbar-track {
+    background: transparent;        /* цвет дорожки */
+}
+.autocomplete__list::-webkit-scrollbar-thumb {
+    border-radius: 2px;
+    background-color: var(--black-600);    /* цвет плашки */
+}
+
 .autocomplete__list--showed {
     opacity: 1;
 }

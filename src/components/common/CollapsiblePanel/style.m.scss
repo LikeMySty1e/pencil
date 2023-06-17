@@ -1,0 +1,64 @@
+.collapsible__panel {
+  padding: 14px 16px;
+}
+
+.panel__button__container {
+  position: relative;
+  padding-bottom: 13px;
+  margin-bottom: 18px;
+  border-bottom: 1px solid var(--black-600);
+}
+
+.panel__button {
+  width: 100%;
+  text-align: start;
+  padding: 0;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 120%;
+  cursor: pointer;
+  background: none;
+  border: none;
+  outline: inherit;
+  color: var(--black-500);
+  transition: all linear 175ms;
+}
+
+.panel__button:hover {
+  color: var(--white);
+}
+
+.panel__icon {
+  position: absolute;
+  top: 0;
+  right: 0;
+  transition: all linear 175ms;
+}
+
+.panel__icon--upside {
+  transform-origin: center;
+  transform: rotate(180deg) translateY(-3px);
+}
+
+.collapsible__content {
+  display: block;
+  overflow-y: scroll;
+  max-height: 0;
+  transition: max-height linear 175ms;
+}
+
+.collapsible__content::-webkit-scrollbar {
+  width: 2px;               /* ширина scrollbar */
+}
+.collapsible__content::-webkit-scrollbar-track {
+  background: transparent;        /* цвет дорожки */
+}
+.collapsible__content::-webkit-scrollbar-thumb {
+  border-radius: 2px;
+  background-color: var(--black-600);    /* цвет плашки */
+}
+
+.collapsible__content--showed {
+  max-height: 25vh;
+  margin-bottom: 18px;
+}

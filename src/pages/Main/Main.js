@@ -11,6 +11,7 @@ const Main = observer(() => {
     const {main} = useContext(Context);
 
     React.useEffect(() => {
+        main.initFilterData();
         main.loadFeed();
 
         return () => main.clearFeed()

@@ -1,6 +1,28 @@
 .filters__container {
-    width: 15vw;
-    height: 60vh;
+    padding: 14px 16px;
+    width: 18vw;
     border-radius: 12px;
     background-color: var(--black-800);
+}
+
+.filter__block {
+    padding-bottom: 16px;
+    margin-bottom: 16px;
+    border-bottom: 1px solid var(--black-600);
+}
+
+.filter__block:last-of-type {
+    margin-bottom: 0;
+    border-bottom: none;
+}
+
+.filter__tag {
+    width: 100% !important;
+    justify-content: left !important;
+    padding: 0 !important;
+    font-size: 15px !important;
+    line-height: 120% !important;
+    background-color: var(--black-800) !important;
+    border-radius: 0 !important;
+    border: none !important;
 }

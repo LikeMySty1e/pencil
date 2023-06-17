@@ -38,7 +38,7 @@ body::-webkit-scrollbar {
   --primary-100: #d0c4f4;
 
   background-color: var(--black-900);
-  min-height: 100vh;
+  min-height: calc(100vh + 30vh);
   height: 100%;
 
   font-family: 'Gilroy', sans-serif;

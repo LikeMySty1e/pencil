@@ -30,27 +30,31 @@ const Autocomplete = observer(props => {
 
     React.useEffect(() => {
         if (!isListShowed || (!data && !getData)) {
-            setQueriedItems([]);
+            return setQueriedItems([]);
         }
 
         if (!query && data?.length) {
             return setQueriedItems(data);
         }
 
+        const search = () => searchInData(query, data, getData, mapper, emptySearchResult)
+            .then(result => setQueriedItems(result))
+            .catch(e => {
+                console.error(e.message);
+                setQueriedItems(emptySearchResult);
+            })
+            .finally(() => setLoading(false));
+
         clearTimeout(debounceTimeout);
 
         setLoading(!!getData);
 
-        debounceTimeout = setTimeout(() => {
-                searchInData(query, data, getData, mapper, emptySearchResult)
-                    .then(result => setQueriedItems(result))
-                    .catch(e => {
-                        console.error(e.message);
-                        setQueriedItems(emptySearchResult);
-                    })
-                    .finally(() => setLoading(false));
-            }, 350);
-    }, [query, data]);
+        if (getData) {
+            debounceTimeout = setTimeout(() => search(), 350);
+        } else {
+            search();
+        }
+    }, [isListShowed, query, data]);
 
     const onChangeQuery = value => {
         setQuery(value);

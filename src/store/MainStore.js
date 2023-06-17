@@ -1,18 +1,23 @@
 import {makeAutoObservable} from 'mobx';
-import {getFeed, loginUser, registrateUser} from "../services/userDataService";
 import localStorageHelper from "../helpers/localStorageHelper";
+import {getFeed, loginUser, registrateUser} from "../services/userDataService";
 import {getAreas, getArt, getTools, saveArt} from "../services/artDataService";
 import {mapArtToSave} from "../helpers/mapper";
-import ArtModel from "../models/ArtModel";
+import {parseUrlData, setDataToUrl} from "../helpers/filterUrlHelper";
+import MainTabsEnum from "../pages/Main/enums/MainTabsEnum";
 import {ART_ROUTE} from "../resources/consts";
+import ArtModel from "../models/ArtModel";
+import FiltersModel from "../models/FiltersModel";
 
 export default class MainStore {
     token = null;
     isAuth = false;
+    tab = null;
     feed = [];
     tools = [];
     areas = [];
     art = { ...ArtModel };
+    tableFilters = { ...FiltersModel };
     validationState = {
         auth: ``
     };
@@ -36,8 +41,17 @@ export default class MainStore {
         this.isAuth = !!this.token;
 
         await this.loadMeta();
-        await this.loadFeed();
     }
+
+    initFilterData = () => {
+        const { tab, data } = parseUrlData();
+        this.tab = tab;
+        this.tableFilters = { ...this.tableFilters, ...data };
+
+        this.updateFilterData();
+    }
+
+    updateFilterData = () => setDataToUrl({ tabName: this.tab, data: this.tableFilters });
 
     loadMeta = async () => {
         this.setLoading(`meta`, true);
@@ -67,7 +81,7 @@ export default class MainStore {
         this.setLoading(`feed`, true);
 
         try {
-            const { ok, result = [] } = await getFeed();
+            const { ok, result = [] } = await getFeed(this.tab);
 
             if (!ok) {
                 throw new Error(`Ошибка загрузки ленты`);
@@ -181,6 +195,29 @@ export default class MainStore {
         if (this.loading.hasOwnProperty(field)) {
             this.loading[field] = !!value;
         }
+    }
+
+    setTab = (tab = MainTabsEnum.moderated) => {
+        this.tab = tab;
+
+        this.updateFilterData();
+        this.loadFeed();
+    }
+
+    setAreas = (areas = []) => {
+        this.tableFilters.areas = [...areas];
+
+        this.updateFilterData();
+    }
+
+    setTags = (tags = []) => {
+        this.tableFilters.tags = [...tags];
+    }
+
+    clearFilters = () => {
+        this.tableFilters = { ...FiltersModel };
+
+        this.updateFilterData();
     }
 
     clearFeed = () => {
